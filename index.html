@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tov_Band | Official Website</title>
+    <meta name="description" content="5인조 밴드 'Tov_Band'의 공식 웹사이트입니다. 프로필, 최신 뮤직비디오, 인스타그램 피드, 공연 섭외 및 비즈니스 문의.">
+    <!-- Google Fonts: Outfit (Header), Plus Jakarta Sans (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Remix Icon for Premium Social & UI Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">TOV_BAND</a>
+            <nav class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#profile" class="nav-link">Profile</a>
+                <a href="#media" class="nav-link">Media</a>
+                <a href="#instagram" class="nav-link">Instagram</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
+                <i class="ri-menu-3-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="gradient-overlay"></div>
+            <!-- Unsplash Band visual placeholder (Atmospheric live performance) -->
+            <img src="./토브이미지.jpg" alt="Tov Band Profile" class="hero-image">
+        </div>
+        <div class="hero-content">
+            <span class="sub-title animate-up">ALTERNATIVE ROCK BAND</span>
+            <h1 class="main-title animate-up delay-1 neon-pulse">TOV_BAND</h1>
+            <p class="hero-desc animate-up delay-2">진심으로 연주하고, 진심으로 노래합니다. Tov_Band의 음악으로 당신의 하루를 채워보세요.</p>
+            <div class="hero-buttons animate-up delay-3">
+                <a href="#media" class="btn btn-primary">Listen Now <i class="ri-play-fill"></i></a>
+                <a href="https://instagram.com/tov_band" target="_blank" rel="noopener noreferrer" class="btn btn-outline instagram-btn">Instagram <i class="ri-instagram-line"></i></a>
+                <a href="#contact" class="btn btn-outline">Booking <i class="ri-mail-send-line"></i></a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="mouse-icon">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile" class="profile section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">MEMBERS</span>
+                <h2 class="section-title">Who We Are</h2>
+                <p class="section-subtitle">Tov_Band는 각자의 개성과 탄탄한 실력을 갖춘 5인조 밴드입니다. 보컬, 기타, 베이스, 키보드, 드럼이 하나의 사운드로 어우러집니다.</p>
+            </div>
+            
+            <div class="members-grid">
+                <!-- Member 1: 보컬 김민지 -->
+                <div class="member-card fade-in">
+                    <div class="member-img-wrap">
+                        <div class="member-img-crop" style="background-image: url('./토브이미지.jpg'); background-size: 600% auto; background-position: 50% 42%;"></div>
+                    </div>
+                    <div class="member-info">
+                        <span class="member-role">Vocal</span>
+                        <h3 class="member-name">김민지</h3>
+                        <p class="member-bio">감성적이고 파워풀한 목소리로 Tov_Band의 사운드를 이끄는 메인 보컬입니다.</p>
+                    </div>
+                </div>
+
+                <!-- Member 2: 기타 송지헌 -->
+                <div class="member-card fade-in">
+                    <div class="member-img-wrap">
+                        <div class="member-img-crop" style="background-image: url('./토브이미지.jpg'); background-position: 10% 32%;"></div>
+                    </div>
+                    <div class="member-info">
+                        <span class="member-role">Guitar</span>
+                        <h3 class="member-name">송지헌</h3>
+                        <p class="member-bio">정교하고 역동적인 리프와 솔로 연주로 곡의 다이내믹과 에너지를 조율합니다.</p>
+                    </div>
+                </div>
+
+                <!-- Member 3: 베이스 안요한 -->
+                <div class="member-card fade-in">
+                    <div class="member-img-wrap">
+                        <div class="member-img-crop" style="background-image: url('./토브이미지.jpg'); background-position: 90% 32%;"></div>
+                    </div>
+                    <div class="member-info">
+                        <span class="member-role">Bass</span>
+                        <h3 class="member-name">안요한</h3>
+                        <p class="member-bio">묵직하면서도 그루브 넘치는 베이스라인으로 밴드의 음악적 사운드 밑바탕을 지탱합니다.</p>
+                    </div>
+                </div>
+
+                <!-- Member 4: 키보드 박지혜 -->
+                <div class="member-card fade-in">
+                    <div class="member-img-wrap">
+                        <div class="member-img-crop" style="background-image: url('./토브이미지.jpg'); background-position: 70% 38%;"></div>
+                    </div>
+                    <div class="member-info">
+                        <span class="member-role">Keyboard</span>
+                        <h3 class="member-name">박지혜</h3>
+                        <p class="member-bio">풍성한 화음과 섬세한 멜로디로 밴드의 음악에 깊이와 색채를 더해주는 키보디스트입니다.</p>
+                    </div>
+                </div>
+
+                <!-- Member 5: 드럼 지태웅 -->
+                <div class="member-card fade-in">
+                    <div class="member-img-wrap">
+                        <div class="member-img-crop" style="background-image: url('./토브이미지.jpg'); background-position: 30% 30%;"></div>
+                    </div>
+                    <div class="member-info">
+                        <span class="member-role">Drums</span>
+                        <h3 class="member-name">지태웅</h3>
+                        <p class="member-bio">심장을 뛰게 만드는 강력하고 정교한 드럼 비트로 라이브의 폭발력을 책임집니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Section -->
+    <section id="media" class="media section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">MEDIA</span>
+                <h2 class="section-title">Music & Video</h2>
+                <p class="section-subtitle">Tov_Band의 최신 영상과 주요 스트리밍 플랫폼에서 곡을 감상해 보세요.</p>
+            </div>
+
+            <!-- YouTube Video Wrapper (16:9 Aspect Ratio) -->
+            <div class="video-container fade-in">
+                <!-- Youtube Live Performance Embed (Using a high-quality copyright-free music background video for demo) -->
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=7Y0Yp-Yd_N_X-k-O" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+
+            <!-- Streaming Links -->
+            <div class="streaming-platforms fade-in">
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="platform-card">
+                    <i class="ri-youtube-fill"></i>
+                    <span>YouTube Music</span>
+                </a>
+                <a href="https://spotify.com" target="_blank" rel="noopener noreferrer" class="platform-card">
+                    <i class="ri-spotify-fill"></i>
+                    <span>Spotify</span>
+                </a>
+                <a href="https://apple.com" target="_blank" rel="noopener noreferrer" class="platform-card">
+                    <i class="ri-apple-fill"></i>
+                    <span>Apple Music</span>
+                </a>
+                <a href="https://soundcloud.com" target="_blank" rel="noopener noreferrer" class="platform-card">
+                    <i class="ri-soundcloud-fill"></i>
+                    <span>Soundcloud</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Section -->
+    <section id="instagram" class="instagram section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">INSTAGRAM</span>
+                <h2 class="section-title">Follow @tov_band</h2>
+                <p class="section-subtitle">인스타그램을 팔로우하고 Tov_Band의 비하인드 씬과 일상 소식을 가장 먼저 만나보세요.</p>
+            </div>
+
+            <!-- Dynamic Instagram Feed Mock Grid -->
+            <!-- 팁: 추후 Elfsight 또는 Curator.io 코드를 이곳에 대체 삽입하여 자동 연동할 수 있습니다. -->
+            <div class="instagram-grid" id="instaGrid">
+                <!-- JavaScript will populate mock items if not using third-party widgets -->
+            </div>
+            
+            <!-- Widget Placeholder Alert for User -->
+            <div class="widget-note fade-in">
+                <i class="ri-information-line"></i>
+                <p>현재 데모 모드로 **인스타그램 Mockup 피드**가 노출되고 있습니다. 실시간 연동 위젯(Elfsight, Curator.io)을 삽입하려면 <code>index.html</code>의 해당 주석 처리된 구역에 소스코드를 붙여넣기만 하면 됩니다.</p>
+            </div>
+            
+            <!-- 
+            💡 Elfsight 또는 Curator.io 연동 방법:
+            위의 #instaGrid 디브(div)를 삭제하고 해당 서비스에서 제공하는 임베드 코드를 아래에 그대로 붙여넣으세요.
+            예시:
+            <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+            <div class="elfsight-app-xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></div>
+            -->
+
+            <div class="text-center button-wrap fade-in">
+                <!-- 인스타그램 버튼은 상단 HOME 섹션으로 이동되었습니다 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section-padding">
+        <div class="container">
+            <div class="contact-wrapper">
+                <!-- Contact Info -->
+                <div class="contact-info fade-in">
+                    <span class="section-tag">CONTACT</span>
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="contact-desc">페스티벌 라인업 구성, 단독 콘서트 대관, 광고 및 비즈니스 콜라보레이션 등 언제든 문의주세요. 신속하게 연락드리겠습니다.</p>
+                    
+                    <div class="info-list">
+                        <div class="info-item">
+                            <i class="ri-mail-line"></i>
+                            <div>
+                                <h4>E-Mail</h4>
+                                <p>booking@tov-band.com</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="ri-phone-line"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+82 (0)10-1234-5678 (매니저)</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="ri-map-pin-line"></i>
+                            <div>
+                                <h4>Office</h4>
+                                <p>서울특별시 마포구 서교동 395-1 (합정 오피스)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-wrap fade-in">
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">이름 / 단체명</label>
+                            <input type="text" id="name" required placeholder="홍길동 (기획사명)">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일 주소</label>
+                            <input type="email" id="email" required placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">문의 유형</label>
+                            <select id="subject">
+                                <option value="booking">공연 및 축제 섭외 문의</option>
+                                <option value="collab">브랜드 협업 및 광고 문의</option>
+                                <option value="media">인터뷰 및 방송 출연 제안</option>
+                                <option value="other">기타 비즈니스 제안</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">상세 문의 내용</label>
+                            <textarea id="message" rows="5" required placeholder="행사 일시, 장소, 예산 등 구체적인 기획안을 남겨주시면 조속히 검토하여 연락드리겠습니다."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                            <span>문의 보내기</span> <i class="ri-send-plane-fill"></i>
+                        </button>
+                    </form>
+                    <div id="formSuccess" class="form-success-msg hidden">
+                        <i class="ri-checkbox-circle-fill"></i>
+                        <h3>성공적으로 전송되었습니다!</h3>
+                        <p>입력하신 이메일로 24시간 이내에 담당 매니저가 연락드리겠습니다. 감사합니다.</p>
+                        <button class="btn btn-outline btn-sm" id="resetFormBtn">새로 작성</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <span class="logo">TOV_BAND</span>
+                <p>진심으로 연주하고, 진심으로 노래합니다.</p>
+            </div>
+            <div class="footer-socials">
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ri-facebook-line"></i></a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="ri-twitter-x-line"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Tov_Band. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+</body>
+</html>
