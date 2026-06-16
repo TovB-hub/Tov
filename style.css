@@ -334,10 +334,11 @@ img {
     letter-spacing: -2px;
     line-height: 1;
     margin-bottom: 24px;
-    background: linear-gradient(180deg, #ffffff 30%, #a1a1aa 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #ffffff;
     text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards, neon-pulse 1.5s infinite alternate;
 }
 
 .hero .hero-desc {
