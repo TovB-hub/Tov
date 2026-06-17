@@ -154,27 +154,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm && formSuccess && resetFormBtn) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
+ 
             // Loading state on button
             const submitText = submitBtn.querySelector('span');
             const originalText = submitText.textContent;
             submitText.textContent = '전송 중...';
             submitBtn.disabled = true;
-
-            // Simulate form submission delay
-            setTimeout(() => {
-                contactForm.classList.add('hidden');
-                formSuccess.classList.remove('hidden');
-                
-                // Reset loading state
-                submitText.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                // Scroll to contact form container
-                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-            }, 1500);
+ 
+            // EmailJS 실제 전송 서비스 호출
+            // serviceID: service_kz6e9v4, templateID: template_9a906yj
+            emailjs.sendForm('service_kz6e9v4', 'template_9a906yj', contactForm)
+                .then(() => {
+                    contactForm.classList.add('hidden');
+                    formSuccess.classList.remove('hidden');
+                    
+                    // Reset loading state
+                    submitText.textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Scroll to contact form container
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                }, (error) => {
+                    alert('문의 전송에 실패하였습니다. 다시 시도해 주세요. 에러: ' + JSON.stringify(error));
+                    submitText.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
         });
-
+ 
         resetFormBtn.addEventListener('click', () => {
             contactForm.reset();
             formSuccess.classList.add('hidden');
