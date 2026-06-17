@@ -533,6 +533,110 @@ img {
     object-fit: cover;
 }
 
+/* Video Placeholder Styling */
+.video-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    overflow: hidden;
+}
+
+.video-placeholder-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./tov-group.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px) brightness(0.25);
+    transform: scale(1.1);
+    transition: var(--transition);
+}
+
+.video-placeholder:hover .video-placeholder-bg {
+    transform: scale(1.15) rotate(0.5deg);
+    filter: blur(4px) brightness(0.35);
+}
+
+.video-placeholder-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    transition: var(--transition);
+}
+
+.video-placeholder:hover .video-placeholder-content {
+    transform: translateY(-5px);
+    border-color: var(--glass-border-focus);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.placeholder-icon {
+    font-size: 64px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+    transition: var(--transition);
+    animation: pulse-slow 3s infinite ease-in-out;
+}
+
+.video-placeholder:hover .placeholder-icon {
+    transform: scale(1.1) rotate(10deg);
+}
+
+.video-placeholder-content h3 {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.video-placeholder-content p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.placeholder-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(135deg, #a5f3fc 0%, #cbd5e1 100%);
+    color: #0f172a;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@keyframes pulse-slow {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 20px var(--accent-glow)); }
+}
+
 .streaming-platforms {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -988,6 +1092,23 @@ img {
     
     .instagram-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .video-placeholder-content {
+        padding: 24px;
+        margin: 0 16px;
+    }
+
+    .video-placeholder-content h3 {
+        font-size: 22px;
+    }
+
+    .video-placeholder-content p {
+        font-size: 13px;
+    }
+
+    .placeholder-icon {
+        font-size: 48px;
     }
 }
 
