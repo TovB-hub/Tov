@@ -265,6 +265,7 @@
             const downloadLink = $("ytm-download"), errorBox = $("ytm-error");
             let pollTimer = null;
             let password = "";
+            let currentJobId = null, currentFilename = "audio.mp3";
 
             const authHeaders = () =>
                 password ? { Authorization: "Basic " + btoa("user:" + password) } : {};
@@ -330,7 +331,9 @@
                         }
                         if (data.status === "completed") {
                             clearInterval(pollTimer); setBusy(false);
-                            downloadLink.href = `${API_BASE}/api/file/${jobId}`;
+                            currentJobId = jobId;
+                            currentFilename = data.filename || ((data.title || "audio") + ".mp3");
+                            downloadLink.href = "#";
                             downloadLink.hidden = false;
                         } else if (data.status === "error") {
                             clearInterval(pollTimer); setBusy(false);
@@ -342,6 +345,37 @@
                     }
                 }, 1000);
             }
+
+            // 다운로드는 링크 이동이 아니라 인증 헤더를 실은 fetch로 처리
+            // (일반 <a href> 이동은 Authorization 헤더가 빠져 401이 남)
+            downloadLink.addEventListener("click", async (e) => {
+                e.preventDefault();
+                if (!currentJobId) return;
+                const origText = downloadLink.textContent;
+                downloadLink.textContent = "다운로드 중...";
+                try {
+                    const res = await fetch(`${API_BASE}/api/file/${currentJobId}`, { headers: authHeaders() });
+                    if (!res.ok) {
+                        let msg = "파일을 가져올 수 없습니다.";
+                        try { msg = (await res.json()).error || msg; } catch (_) {}
+                        showError(msg);
+                        return;
+                    }
+                    const blob = await res.blob();
+                    const blobUrl = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = blobUrl;
+                    a.download = currentFilename;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    URL.revokeObjectURL(blobUrl);
+                } catch (err) {
+                    showError("백엔드 서버에 연결할 수 없습니다.");
+                } finally {
+                    downloadLink.textContent = origText;
+                }
+            });
 
             form.addEventListener("submit", async (e) => {
                 e.preventDefault();
