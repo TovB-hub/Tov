@@ -31,6 +31,7 @@
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#profile" class="nav-link">Profile</a>
                 <a href="#media" class="nav-link">Media</a>
+                <a href="#extract" class="nav-link">Extract</a>
                 <a href="#instagram" class="nav-link">Instagram</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </nav>
@@ -163,6 +164,200 @@
 
 
         </div>
+    </section>
+
+    <!-- YouTube to MP3 Section -->
+    <section id="extract" class="extract section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">TOOL</span>
+                <h2 class="section-title">YouTube → MP3</h2>
+                <p class="section-subtitle">유튜브 링크를 붙여넣으면 음원(MP3)으로 변환해 드립니다. 개인적·합법적 용도로만 이용해 주세요.</p>
+            </div>
+
+            <div class="fade-in">
+                <div id="ytm-widget">
+                    <!-- 🔒 잠금 화면 (백엔드에 APP_PASSWORD 설정 시 자동 표시) -->
+                    <div class="ytm-lock" id="ytm-lock" hidden>
+                        <h3 class="ytm-title">🔒 비밀번호 입력</h3>
+                        <form class="ytm-form" id="ytm-lock-form">
+                            <input class="ytm-input" id="ytm-pw" type="password"
+                                   placeholder="비밀번호" autocomplete="off" />
+                            <button class="ytm-btn" id="ytm-unlock" type="submit">확인</button>
+                        </form>
+                        <p class="ytm-error" id="ytm-lock-error" hidden></p>
+                    </div>
+
+                    <!-- 변환기 (인증 통과 후 표시) -->
+                    <div class="ytm-app" id="ytm-app" hidden>
+                        <form class="ytm-form" id="ytm-form">
+                            <input class="ytm-input" id="ytm-url" type="text"
+                                   placeholder="https://www.youtube.com/watch?v=..." autocomplete="off" />
+                            <button class="ytm-btn" id="ytm-submit" type="submit">변환하기</button>
+                        </form>
+                        <div class="ytm-status" id="ytm-status" hidden>
+                            <p class="ytm-status-text" id="ytm-status-text"></p>
+                            <div class="ytm-bar" id="ytm-bar" hidden><div class="ytm-bar-fill" id="ytm-bar-fill"></div></div>
+                            <a class="ytm-download" id="ytm-download" hidden>MP3 다운로드</a>
+                        </div>
+                        <p class="ytm-error" id="ytm-error" hidden></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            #ytm-widget {
+                --ytm-accent: #7dd3fc;
+                max-width: 520px; margin: 0 auto; padding: 2rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 16px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+                font-family: 'Plus Jakarta Sans', sans-serif; color: #fff;
+                box-sizing: border-box; backdrop-filter: blur(12px);
+            }
+            #ytm-widget * { box-sizing: border-box; }
+            #ytm-widget .ytm-title { margin: 0 0 1.25rem; font-size: 1.2rem; text-align: center; font-family: 'Outfit', sans-serif; font-weight: 600; }
+            #ytm-widget .ytm-form { display: flex; gap: .6rem; flex-wrap: wrap; }
+            #ytm-widget .ytm-input {
+                flex: 1; min-width: 0; padding: .8rem 1rem;
+                border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px;
+                background: rgba(255, 255, 255, 0.04); color: #fff; font-size: .95rem;
+            }
+            #ytm-widget .ytm-input::placeholder { color: #71717a; }
+            #ytm-widget .ytm-input:focus { outline: none; border-color: var(--ytm-accent); }
+            #ytm-widget .ytm-btn {
+                padding: .8rem 1.4rem; border: none; border-radius: 10px;
+                background: linear-gradient(135deg, #bae6fd 0%, #38bdf8 100%); color: #0a0a0c;
+                font-weight: 700; cursor: pointer; white-space: nowrap;
+            }
+            #ytm-widget .ytm-btn:disabled { opacity: .6; cursor: default; }
+            #ytm-widget .ytm-status { margin-top: 1.5rem; }
+            #ytm-widget .ytm-status-text { margin: 0 0 .7rem; font-size: .9rem; color: #a1a1aa; }
+            #ytm-widget .ytm-bar { width: 100%; height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 6px; overflow: hidden; }
+            #ytm-widget .ytm-bar-fill { height: 100%; width: 0; background: linear-gradient(135deg, #bae6fd 0%, #38bdf8 100%); transition: width .3s ease; }
+            #ytm-widget .ytm-download {
+                display: inline-block; margin-top: 1.2rem; padding: .7rem 1.2rem;
+                background: linear-gradient(135deg, #6ee7b7 0%, #34d399 100%); color: #0a0a0c;
+                border-radius: 10px; text-decoration: none; font-weight: 700;
+            }
+            #ytm-widget .ytm-error { margin-top: 1rem; color: #f87171; font-size: .9rem; }
+        </style>
+
+        <script>
+        (function () {
+            // 배포된 백엔드 (Fly.io)
+            const API_BASE = "https://tov-youtube-mp3.fly.dev";
+
+            const STATUS_LABEL = {
+                queued: "대기 중...", downloading: "다운로드 중...",
+                converting: "MP3로 변환 중...", completed: "완료!", error: "오류 발생",
+            };
+
+            const $ = (id) => document.getElementById(id);
+            const lockBox = $("ytm-lock"), lockForm = $("ytm-lock-form"), pwInput = $("ytm-pw");
+            const unlockBtn = $("ytm-unlock"), lockError = $("ytm-lock-error");
+            const appBox = $("ytm-app");
+            const form = $("ytm-form"), urlInput = $("ytm-url"), submitBtn = $("ytm-submit");
+            const statusBox = $("ytm-status"), statusText = $("ytm-status-text");
+            const bar = $("ytm-bar"), barFill = $("ytm-bar-fill");
+            const downloadLink = $("ytm-download"), errorBox = $("ytm-error");
+            let pollTimer = null;
+            let password = "";
+
+            const authHeaders = () =>
+                password ? { Authorization: "Basic " + btoa("user:" + password) } : {};
+
+            async function init() {
+                try {
+                    const res = await fetch(`${API_BASE}/api/auth-check`);
+                    if (res.status === 401) { lockBox.hidden = false; }
+                    else { appBox.hidden = false; }
+                } catch (e) { appBox.hidden = false; }
+            }
+
+            lockForm && lockForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                lockError.hidden = true;
+                const pw = pwInput.value;
+                if (!pw) { lockError.textContent = "비밀번호를 입력해주세요."; lockError.hidden = false; return; }
+                unlockBtn.disabled = true; unlockBtn.textContent = "확인 중...";
+                try {
+                    const res = await fetch(`${API_BASE}/api/auth-check`, {
+                        headers: { Authorization: "Basic " + btoa("user:" + pw) },
+                    });
+                    if (res.ok) {
+                        password = pw;
+                        lockBox.hidden = true; appBox.hidden = false;
+                    } else {
+                        lockError.textContent = "비밀번호가 올바르지 않습니다."; lockError.hidden = false;
+                    }
+                } catch (e) {
+                    lockError.textContent = "백엔드 서버에 연결할 수 없습니다."; lockError.hidden = false;
+                } finally {
+                    unlockBtn.disabled = false; unlockBtn.textContent = "확인";
+                }
+            });
+
+            function reset() {
+                clearInterval(pollTimer);
+                statusBox.hidden = true; bar.hidden = true; downloadLink.hidden = true;
+                errorBox.hidden = true; barFill.style.width = "0%";
+            }
+            function showError(msg) { statusBox.hidden = false; errorBox.textContent = msg; errorBox.hidden = false; }
+            function setBusy(b) { submitBtn.disabled = b; submitBtn.textContent = b ? "변환 중..." : "변환하기"; }
+
+            function poll(jobId) {
+                pollTimer = setInterval(async () => {
+                    try {
+                        const res = await fetch(`${API_BASE}/api/progress/${jobId}`, { headers: authHeaders() });
+                        const data = await res.json();
+                        if (!res.ok) { showError(data.error || "진행 상황을 가져올 수 없습니다."); clearInterval(pollTimer); setBusy(false); return; }
+                        const label = STATUS_LABEL[data.status] || data.status;
+                        statusText.textContent = label + (data.title ? " — " + data.title : "");
+                        if (["downloading", "converting", "completed"].includes(data.status)) {
+                            bar.hidden = false; barFill.style.width = (data.percent || 0) + "%";
+                        }
+                        if (data.status === "completed") {
+                            clearInterval(pollTimer); setBusy(false);
+                            downloadLink.href = `${API_BASE}/api/file/${jobId}`;
+                            downloadLink.hidden = false;
+                        } else if (data.status === "error") {
+                            clearInterval(pollTimer); setBusy(false);
+                            showError(data.error || "변환 중 오류가 발생했습니다.");
+                        }
+                    } catch (e) {
+                        clearInterval(pollTimer); setBusy(false);
+                        showError("백엔드 서버에 연결할 수 없습니다.");
+                    }
+                }, 1000);
+            }
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                reset();
+                const url = urlInput.value.trim();
+                if (!url) { showError("YouTube URL을 입력해주세요."); return; }
+                setBusy(true); statusBox.hidden = false; statusText.textContent = STATUS_LABEL.queued;
+                try {
+                    const res = await fetch(`${API_BASE}/api/download`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", ...authHeaders() },
+                        body: JSON.stringify({ url }),
+                    });
+                    const data = await res.json();
+                    if (res.status === 401) { setBusy(false); showError("세션이 만료됐습니다. 페이지를 새로고침해 비밀번호를 다시 입력해주세요."); return; }
+                    if (!res.ok) { setBusy(false); showError(data.error || "요청 처리 중 오류가 발생했습니다."); return; }
+                    poll(data.job_id);
+                } catch (e) {
+                    setBusy(false); showError("백엔드 서버에 연결할 수 없습니다.");
+                }
+            });
+
+            init();
+        })();
+        </script>
     </section>
 
     <!-- Instagram Section -->
