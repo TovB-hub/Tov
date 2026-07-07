@@ -31,7 +31,7 @@
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#profile" class="nav-link">Profile</a>
                 <a href="#media" class="nav-link">Media</a>
-                <a href="#extract" class="nav-link">Extract</a>
+                <a href="#extract" class="nav-link">Private</a>
                 <a href="#instagram" class="nav-link">Instagram</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </nav>
@@ -170,9 +170,9 @@
     <section id="extract" class="extract section-padding">
         <div class="container">
             <div class="section-header text-center">
-                <span class="section-tag">TOOL</span>
-                <h2 class="section-title">YouTube → MP3</h2>
-                <p class="section-subtitle">유튜브 링크를 붙여넣으면 음원(MP3)으로 변환해 드립니다. 개인적·합법적 용도로만 이용해 주세요.</p>
+                <span class="section-tag" id="extract-tag">PRIVATE</span>
+                <h2 class="section-title" id="extract-title">Members Only</h2>
+                <p class="section-subtitle" id="extract-subtitle">밴드 멤버 전용 공간입니다. 비밀번호를 입력하면 내용이 표시됩니다.</p>
             </div>
 
             <div class="fade-in">
@@ -269,12 +269,21 @@
             const authHeaders = () =>
                 password ? { Authorization: "Basic " + btoa("user:" + password) } : {};
 
+            // 잠금 해제 전에는 섹션 정체(제목/설명)를 숨기고, 통과 후에만 표시
+            function reveal() {
+                document.getElementById("extract-tag").textContent = "TOOL";
+                document.getElementById("extract-title").textContent = "YouTube → MP3";
+                document.getElementById("extract-subtitle").textContent = "유튜브 링크를 붙여넣으면 음원(MP3)으로 변환해 드립니다. 개인적·합법적 용도로만 이용해 주세요.";
+                lockBox.hidden = true;
+                appBox.hidden = false;
+            }
+
             async function init() {
                 try {
                     const res = await fetch(`${API_BASE}/api/auth-check`);
-                    if (res.status === 401) { lockBox.hidden = false; }
-                    else { appBox.hidden = false; }
-                } catch (e) { appBox.hidden = false; }
+                    if (res.ok) { reveal(); }
+                    else { lockBox.hidden = false; }
+                } catch (e) { lockBox.hidden = false; }
             }
 
             lockForm && lockForm.addEventListener("submit", async (e) => {
@@ -289,7 +298,7 @@
                     });
                     if (res.ok) {
                         password = pw;
-                        lockBox.hidden = true; appBox.hidden = false;
+                        reveal();
                     } else {
                         lockError.textContent = "비밀번호가 올바르지 않습니다."; lockError.hidden = false;
                     }
