@@ -412,25 +412,41 @@
                 <p class="section-subtitle">인스타그램을 팔로우하고 Tov_Band의 비하인드 씬과 일상 소식을 가장 먼저 만나보세요.</p>
             </div>
 
-            <!-- Dynamic Instagram Feed Mock Grid -->
-            <!-- 팁: 추후 Elfsight 또는 Curator.io 코드를 이곳에 대체 삽입하여 자동 연동할 수 있습니다. -->
-            <div class="instagram-grid" id="instaGrid">
-                <!-- JavaScript will populate mock items if not using third-party widgets -->
+            <!-- 실제 @tov_band 게시물 공식 임베드 (Instagram embed.js가 blockquote를 게시물 카드로 변환) -->
+            <div class="instagram-grid instagram-embeds fade-in">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DX3aYckgW2y/" data-instgrm-version="14">
+                    <a href="https://www.instagram.com/p/DX3aYckgW2y/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
+                </blockquote>
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUYTx42gedy/" data-instgrm-version="14">
+                    <a href="https://www.instagram.com/p/DUYTx42gedy/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
+                </blockquote>
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUYTxOfAdkG/" data-instgrm-version="14">
+                    <a href="https://www.instagram.com/p/DUYTxOfAdkG/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
+                </blockquote>
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUYTwewAVxi/" data-instgrm-version="14">
+                    <a href="https://www.instagram.com/p/DUYTwewAVxi/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
+                </blockquote>
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUYTvSlgS3u/" data-instgrm-version="14">
+                    <a href="https://www.instagram.com/p/DUYTvSlgS3u/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
+                </blockquote>
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUYTsnoATcb/" data-instgrm-version="14">
+                    <a href="https://www.instagram.com/p/DUYTsnoATcb/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
+                </blockquote>
             </div>
-            
-            <!-- Widget Placeholder Alert for User -->
-            <div class="widget-note fade-in">
-                <i class="ri-information-line"></i>
-                <p>현재 데모 모드로 **인스타그램 Mockup 피드**가 노출되고 있습니다. 실시간 연동 위젯(Elfsight, Curator.io)을 삽입하려면 <code>index.html</code>의 해당 주석 처리된 구역에 소스코드를 붙여넣기만 하면 됩니다.</p>
-            </div>
-            
-            <!-- 
-            💡 Elfsight 또는 Curator.io 연동 방법:
-            위의 #instaGrid 디브(div)를 삭제하고 해당 서비스에서 제공하는 임베드 코드를 아래에 그대로 붙여넣으세요.
-            예시:
-            <script src="https://apps.elfsight.com/p/platform.js" defer></script>
-            <div class="elfsight-app-xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"></div>
-            -->
+            <script async src="https://www.instagram.com/embed.js"></script>
+
+            <style>
+                /* 임베드 카드 크기 편차 보정 + 다크 테마 위 로딩 상태 */
+                .instagram-embeds { align-items: start; }
+                .instagram-embeds .instagram-media {
+                    width: 100% !important; min-width: 0 !important; max-width: 100% !important;
+                    margin: 0 !important; border-radius: 12px !important;
+                    background: var(--bg-tertiary);
+                    border: 1px solid var(--glass-border) !important;
+                    min-height: 320px;
+                }
+                .instagram-embeds .instagram-media a { color: var(--accent); display: block; padding: 1rem; }
+            </style>
 
             <div class="text-center button-wrap fade-in">
                 <!-- 인스타그램 버튼은 상단 HOME 섹션으로 이동되었습니다 -->
@@ -511,7 +527,7 @@
             </div>
             <div class="footer-socials">
                 <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+                <a href="https://instagram.com/tov_band" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
             </div>
         </div>
         <div class="footer-bottom text-center">
