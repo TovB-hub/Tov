@@ -423,21 +423,13 @@
                 <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUYTxOfAdkG/" data-instgrm-version="14">
                     <a href="https://www.instagram.com/p/DUYTxOfAdkG/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
                 </blockquote>
-                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUYTwewAVxi/" data-instgrm-version="14">
-                    <a href="https://www.instagram.com/p/DUYTwewAVxi/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
-                </blockquote>
-                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUYTvSlgS3u/" data-instgrm-version="14">
-                    <a href="https://www.instagram.com/p/DUYTvSlgS3u/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
-                </blockquote>
-                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUYTsnoATcb/" data-instgrm-version="14">
-                    <a href="https://www.instagram.com/p/DUYTsnoATcb/" target="_blank" rel="noopener noreferrer">Instagram에서 보기</a>
-                </blockquote>
             </div>
             <script async src="https://www.instagram.com/embed.js"></script>
 
             <style>
                 /* 임베드 카드 크기 편차 보정 + 다크 테마 위 로딩 상태 */
-                .instagram-embeds { align-items: start; }
+                /* 인스타그램 임베드 최소 폭이 326px라, 그리드를 그 근처로 좁혀 컴팩트하게 표시 */
+                .instagram-embeds { align-items: start; max-width: 1020px; margin-left: auto; margin-right: auto; }
                 .instagram-embeds .instagram-media {
                     width: 100% !important; min-width: 0 !important; max-width: 100% !important;
                     margin: 0 !important; border-radius: 12px !important;
